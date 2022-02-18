@@ -34,10 +34,10 @@ export async function getTask(req, res) {
 
 export async function updateTask(req, res) {
     const { id } = req.params;
-    const {projectId, name, done } = req.body;
+    const { projectId, name, done } = req.body;
 
     const task = await Task.findOne({
-        attributes: ['name','projectid','done','id'],
+        attributes: ['name', 'projectid', 'done', 'id'],
         where: {
             id
         }
@@ -47,7 +47,7 @@ export async function updateTask(req, res) {
         name,
         done,
         projectid: projectId
-    },{
+    }, {
         where: {
             id
         }
@@ -84,7 +84,7 @@ export async function getTaskById(req, res) {
         where: {
             id
         },
-        attributes: ['id', 'projectid','name','done']
+        attributes: ['id', 'projectid', 'name', 'done']
     });
     res.json({
         message: 'Query success',
@@ -94,5 +94,18 @@ export async function getTaskById(req, res) {
 }
 
 export async function getTaskByProject(req, res) {
+    const { projectid } = req.params;
+    const tasks = await Task.findAll({
+        attributes: ['id', 'projectid', 'done', 'name'],
+        where: {
+            projectid
+        }
+    });
+    res.json({
+        message: 'Query task by project success',
+        data: {
+            tasks
+        }
+    });
 
 }
