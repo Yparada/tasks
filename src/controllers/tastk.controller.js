@@ -79,6 +79,17 @@ export async function deleteTask(req, res) {
 }
 
 export async function getTaskById(req, res) {
+    const { id } = req.params;
+    const task = await Task.findOne({
+        where: {
+            id
+        },
+        attributes: ['id', 'projectid','name','done']
+    });
+    res.json({
+        message: 'Query success',
+        data: task
+    })
 
 }
 
