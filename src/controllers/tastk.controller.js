@@ -33,6 +33,32 @@ export async function getTask(req, res) {
 }
 
 export async function updateTask(req, res) {
+    const { id } = req.params;
+    const {projectId, name, done } = req.body;
+
+    const task = await Task.findOne({
+        attributes: ['name','projectid','done','id'],
+        where: {
+            id
+        }
+    });
+
+    const updatedTask = await Task.update({
+        name,
+        done,
+        projectid: projectId
+    },{
+        where: {
+            id
+        }
+    });
+
+    res.json({
+        message: 'Task updated',
+        data: {
+            taskUpdated: updatedTask
+        }
+    })
 
 }
 
