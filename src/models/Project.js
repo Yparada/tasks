@@ -1,6 +1,7 @@
 import { Sequelize } from "sequelize";
 import { sequelize } from "../database/database";
 import Task from "./Tasks";
+import UserProject from "./UserProjects";
 
 const Project = sequelize.define('projects', {
     id: {
@@ -25,5 +26,8 @@ const Project = sequelize.define('projects', {
 
 Project.hasMany(Task, { foreignKey: 'projectid', sourceKey: 'id' });
 Task.belongsTo(Project, { foreignKey: 'projectid', sourceKey: 'id' });
+
+Project.hasMany(UserProject, { foreignKey: 'projectid', sourceKey: 'id' });
+UserProject.belongsTo(Project, { foreignKey: 'projectid', sourceKey: 'id' });
 
 export default Project;

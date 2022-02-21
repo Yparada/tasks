@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import { sequelize } from '../database/database';
+import UserProject from "./UserProjects";
 
 const User = sequelize.define('users', {
     id: {
@@ -15,5 +16,8 @@ const User = sequelize.define('users', {
 }, {
     timestamps: false
 });
+
+User.hasMany(UserProject, { foreignKey: 'userid', sourceKey: 'id' });
+UserProject.belongsTo(User, { foreignKey: 'userid', sourceKey: 'id'});
 
 export default User;
