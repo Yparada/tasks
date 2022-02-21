@@ -8,7 +8,7 @@ const User = sequelize.define('users', {
         primaryKey: true
     },
     name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(40)
     },
     email: {
         type: Sequelize.TEXT
