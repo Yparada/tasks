@@ -1,7 +1,12 @@
 import User from '../models/Users';
 
 export async function getAll() {
-    return await User.findAll();
+    return await User.findAll({
+        attributes: ['id','name','email'],
+        order: [
+            ['id', 'ASC']
+        ]
+    });
 }
 
 export async function getById(id){
