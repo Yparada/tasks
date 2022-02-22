@@ -4,6 +4,16 @@ export async function getAll() {
     return await User.findAll();
 }
 
+export async function getById(id){
+    const data = await User.findOne({
+       attributes: ['id','name','email'],
+       where: {
+           id
+       } 
+    });
+    return data;
+}
+
 export async function create(body) {
     const { name, email } = body;
     if(!name && !email){
@@ -16,4 +26,26 @@ export async function create(body) {
         fields: ['name', 'email']
     });
     return newUser;
+}
+
+export async function update(req){
+    const { id } = req.params;
+    const { name, email } = req.body;
+    const exist = await getById(id);
+    if(exist){
+        const user = await User.update({
+            name,
+            email
+        }, {
+            where: {
+                id
+            }
+        });
+        return user;
+    }
+    else{
+        return null;
+    }
+
+
 }
