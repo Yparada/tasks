@@ -46,6 +46,13 @@ export async function update(req){
     else{
         return null;
     }
+}
 
-
+export async function deleteById(id){
+    const userDeleted = await User.destroy({
+        where: {
+            id
+        }
+    });
+    return userDeleted;
 }

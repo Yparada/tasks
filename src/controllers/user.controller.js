@@ -1,6 +1,6 @@
 import User from "../models/Users";
 import { success, error, errorGen } from '../common/response';
-import { getAll, create, getById, update } from "../services/user.service";
+import { getAll, create, getById, update, deleteById } from "../services/user.service";
 import createError from 'http-errors';
 
 
@@ -49,6 +49,16 @@ export async function updateUser(req, res){
         console.log(e);
         error(res);
         
+    }
+}
+
+export async function deleteUser(req, res){
+    try {
+        const userDeleted = await deleteById(req.params.id);
+        success(res, 200, 'User deleted', userDeleted);
+    } catch (e) {
+        console.log(e);
+        error(res);
     }
 }
 
