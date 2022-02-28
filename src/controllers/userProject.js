@@ -1,5 +1,6 @@
 import { error, success } from "../common/response";
-import { getAll, getByUser, getByProject, create } from "../services/userProjects";
+import { getAll, getByUser, getByProject, create, update } from "../services/userProjects";
+import createError from 'http-errors';
 
 export async function getUserProjects(req, res){
     try {
@@ -35,6 +36,18 @@ export async function createUserProject(req, res){
     try {
         const usrPrj = await create(req);
         success(res, 200, 'Create relation', usrPrj);
+    } catch (e) {
+        error(res);
+    }
+}
+
+export async function updateUserProject(req, res){
+    try {
+        const usrPrj = await update(req);
+        if(!usrPrj){
+            return error(res, new createError.BadRequest());
+        }
+        success(res, 200, 'Update relation', usrPrj);
     } catch (e) {
         error(res);
     }

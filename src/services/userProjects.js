@@ -45,3 +45,17 @@ export async function create(req){
     });
     return newUsProj;
 }
+
+export async function update(req){
+    const { id } = req.params;
+    const { userid, projectid } = req.body;
+    const usrPrj = await UserProject.update({
+        userid,
+        projectid
+    },{
+        where: {
+            id
+        }
+    });
+    return usrPrj;
+}
