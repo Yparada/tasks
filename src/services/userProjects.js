@@ -15,7 +15,10 @@ export async function getByUser(req){
         include: Project,
         where: {
             userid
-        }
+        },
+        order: [
+            ['id', 'ASC']
+        ]
     });
     return users;
 }
@@ -58,4 +61,15 @@ export async function update(req){
         }
     });
     return usrPrj;
+}
+
+export async function deleteUsrProject(req){
+    const { id } = req.params;
+    const userProject = await UserProject.destroy({
+        where: {
+            id
+        }
+    });
+
+    return userProject;
 }
