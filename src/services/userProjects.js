@@ -31,3 +31,17 @@ export async function getByProject(req){
     });
     return projects;
 }
+
+export async function create(req){
+    const { userid, projectid  } = req.body;
+    if( !userid && !projectid){
+        return null;
+    }
+    let newUsProj = await UserProject.create({
+        userid,
+        projectid
+    },{
+        fields: ['userid','projectid']
+    });
+    return newUsProj;
+}
